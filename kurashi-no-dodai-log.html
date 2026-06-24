@@ -226,6 +226,41 @@
     .position-not__x { font-size: 18px; margin-bottom: 6px; color: #666; }
     .position-not__label { font-size: 13px; font-weight: 700; color: #777; text-decoration: line-through; }
 
+    /* ── ロードマップ ── */
+    .phase-list { display: flex; flex-direction: column; }
+    .phase-item { display: flex; gap: 20px; }
+    .phase-track { display: flex; flex-direction: column; align-items: center; }
+    .phase-dot {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;
+      flex-shrink: 0; box-shadow: 0 0 16px rgba(218,119,86,0.4); text-align: center; line-height: 1.2;
+    }
+    .phase-dot.current {
+      background: transparent; border: 2px solid var(--primary);
+      box-shadow: 0 0 20px rgba(218,119,86,0.5);
+    }
+    .phase-dot.future { background: var(--card); border: 2px solid var(--border); color: var(--text-muted); box-shadow: none; }
+    .phase-line { flex: 1; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--border)); margin: 6px 0; opacity: 0.35; min-height: 20px; }
+    .phase-content { flex: 1; padding-bottom: 36px; padding-top: 8px; }
+    .phase-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+    .phase-title { font-size: 17px; font-weight: 800; color: var(--primary); }
+    .phase-period {
+      font-size: 11px; color: var(--text-muted); background: var(--card-2);
+      border: 1px solid var(--border); padding: 2px 10px; border-radius: 99px;
+    }
+    .phase-badge {
+      font-size: 10px; font-weight: 700; color: #fff; background: var(--primary);
+      padding: 2px 8px; border-radius: 99px; letter-spacing: 0.05em;
+    }
+    .phase-group { margin-bottom: 12px; }
+    .phase-group__label {
+      font-size: 11px; font-weight: 700; color: var(--primary);
+      margin-bottom: 5px; letter-spacing: 0.05em;
+    }
+    .phase-bullets { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .phase-bullets li { font-size: 13px; color: var(--text-muted); padding-left: 16px; position: relative; }
+    .phase-bullets li::before { content: '›'; position: absolute; left: 3px; color: var(--primary); font-weight: 700; }
+
     /* ── フッター ── */
     .footer {
       text-align: center; font-size: 12px; color: #555;
@@ -475,7 +510,160 @@
     </div>
   </div>
 
-  <!-- ══ 7. 発信方針 ══ -->
+  <!-- ══ 7. ロードマップ ══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="chapter-num">道</div>
+      <h2 class="section-title">ロードマップ</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="view-block" style="margin-bottom: 24px;">
+      <p class="view-label">このロードマップについて</p>
+      <p class="view-text">
+        厳密な計画ではない。<strong>「何を試して、何を記録するか」の大まかな時間軸</strong>。
+        未確認事項が多いため、実態に合わせて更新していく。
+      </p>
+    </div>
+
+    <div class="phase-list">
+
+      <!-- P1 -->
+      <div class="phase-item">
+        <div class="phase-track">
+          <div class="phase-dot current" style="font-size: 9px;">現在</div>
+          <div class="phase-line"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">P1 ― 移住前</span>
+            <span class="phase-period">現在進行中</span>
+            <span class="phase-badge">NOW</span>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">💼 仕事</p>
+            <ul class="phase-bullets">
+              <li>AI事業の営業ツール・診断ツール整備</li>
+              <li>提案書生成ツール開発</li>
+            </ul>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">📢 発信</p>
+            <ul class="phase-bullets">
+              <li>発信チャンネルの開設・記録スタート</li>
+              <li>移住準備の経緯を記録</li>
+            </ul>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">🏠 住まい</p>
+            <ul class="phase-bullets">
+              <li>住宅・農地の事前情報収集</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="phase-item">
+        <div class="phase-track">
+          <div class="phase-dot future">P2</div>
+          <div class="phase-line"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">P2 ― 確認フェーズ</span>
+            <span class="phase-period">移住直後〜6か月</span>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">🔍 生活基盤の確認</p>
+            <ul class="phase-bullets">
+              <li>農地の面積・土壌状態を確認・記録</li>
+              <li>井戸の水量・飲用可否を確認・記録</li>
+              <li>住宅の雨漏り・配線・断熱状態を確認・記録</li>
+              <li>電力使用量の計測開始</li>
+            </ul>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">💼 仕事</p>
+            <ul class="phase-bullets">
+              <li>AI事業の地域での営業開始</li>
+              <li>地域企業・農業法人との接点づくり</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="phase-item">
+        <div class="phase-track">
+          <div class="phase-dot future">P3</div>
+          <div class="phase-line"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">P3 ― 試すフェーズ</span>
+            <span class="phase-period">6か月〜2年</span>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">🌾 食</p>
+            <ul class="phase-bullets">
+              <li>初めての米作り・野菜作りに挑戦・記録</li>
+              <li>食料自給率の把握</li>
+            </ul>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">🏠 住まい・エネルギー</p>
+            <ul class="phase-bullets">
+              <li>優先度の高い住宅修繕を実施・記録</li>
+              <li>電力データをもとにエネルギー設備を選定・導入</li>
+            </ul>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">💼 仕事</p>
+            <ul class="phase-bullets">
+              <li>AI事業の本稼働・顧問契約の確立</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="phase-item">
+        <div class="phase-track">
+          <div class="phase-dot future">P4</div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">P4 ― 深めるフェーズ</span>
+            <span class="phase-period">2年〜</span>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">🌾 食</p>
+            <ul class="phase-bullets">
+              <li>米・野菜の自給率向上（試行と改善の繰り返し）</li>
+            </ul>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">🌍 地域</p>
+            <ul class="phase-bullets">
+              <li>農業コミュニティへの参加・地域ネットワーク形成</li>
+              <li>AI事業×地域課題の展開</li>
+            </ul>
+          </div>
+          <div class="phase-group">
+            <p class="phase-group__label">🔋 エネルギー</p>
+            <ul class="phase-bullets">
+              <li>太陽光・蓄電池の運用最適化</li>
+              <li>外部依存のさらなる低減</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /phase-list -->
+  </div>
+
+  <!-- ══ 8. 発信方針 ══（旧7） -->
   <div class="section">
     <div class="section-header">
       <div class="chapter-num">発</div>
