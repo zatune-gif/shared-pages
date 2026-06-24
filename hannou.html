@@ -96,6 +96,28 @@
     .info-bar__text { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
     .info-bar__text strong { color: var(--text); }
 
+    /* ── ロードマップ ── */
+    .roadmap { display: flex; flex-direction: column; }
+    .roadmap-conn { width: 2px; height: 24px; margin-left: 30px; opacity: 0.4; background: linear-gradient(to bottom, var(--success), transparent); }
+    .rm-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 28px 24px; position: relative; overflow: hidden; }
+    .rm-card.rm-current { background: #0e1c14; border-color: rgba(76,175,125,0.45); box-shadow: 0 0 50px rgba(76,175,125,0.08), inset 0 0 40px rgba(76,175,125,0.02); }
+    .rm-card.rm-future { opacity: 0.6; }
+    .rm-bg-num { position: absolute; right: 12px; top: 4px; font-size: 100px; font-weight: 900; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -0.04em; }
+    .rm-current .rm-bg-num { color: rgba(76,175,125,0.08); }
+    .rm-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .rm-label { font-size: 10px; font-weight: 900; color: #fff; background: var(--success); padding: 3px 12px; border-radius: 99px; letter-spacing: 0.1em; flex-shrink: 0; }
+    .rm-future .rm-label { background: #2a2a2a; color: #666; }
+    .rm-title { font-size: 20px; font-weight: 900; color: var(--text); flex: 1; }
+    .rm-period { font-size: 11px; color: var(--text-muted); white-space: nowrap; background: var(--card-2); border: 1px solid var(--border); padding: 3px 12px; border-radius: 99px; }
+    .rm-now { font-size: 10px; font-weight: 900; letter-spacing: 0.12em; color: var(--success); border: 1.5px solid var(--success); padding: 2px 10px; border-radius: 99px; animation: rm-pulse-g 2s ease-in-out infinite; }
+    @keyframes rm-pulse-g { 0%,100%{opacity:1;} 50%{opacity:0.45;} }
+    .rm-divider { height: 1px; background: var(--border); margin-bottom: 18px; }
+    .rm-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px 28px; }
+    .rm-group-label { font-size: 10px; font-weight: 800; color: var(--success); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 7px; }
+    .rm-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .rm-bullets li { font-size: 13px; color: var(--text-muted); padding-left: 14px; position: relative; line-height: 1.55; }
+    .rm-bullets li::before { content: '›'; position: absolute; left: 2px; color: var(--success); font-weight: 700; }
+
     .footer { text-align: center; font-size: 12px; color: #555; padding: 28px 24px; border-top: 1px solid var(--border); }
   </style>
 </head>
@@ -320,6 +342,135 @@
     <div class="info-bar">
       <div class="info-bar__icon">📢</div>
       <div class="info-bar__text">媒体候補：<strong>YouTube（農作業動画）</strong>・<strong>note（詳細記録）</strong>・<strong>X/Facebook（日常シェア）</strong></div>
+    </div>
+  </div>
+
+  <!-- ══ ロードマップ ══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="chapter-num">道</div>
+      <h2 class="section-title">ロードマップ</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="view-block" style="margin-bottom: 24px;">
+      <p class="view-label">応援・助言してくださっている方々へ</p>
+      <p class="view-text">
+        農業は完全に未経験です。農地の詳細も移住してから初めて確認します。<strong>このプロジェクトは移住後（P2）から本格始動</strong>。失敗も記録しながら、焦らずデータを見て進めます。
+      </p>
+    </div>
+
+    <div class="roadmap">
+      <div class="rm-card rm-current">
+        <div class="rm-bg-num">P1</div>
+        <div class="rm-head">
+          <span class="rm-label">P1</span>
+          <span class="rm-title">移住前（準備）</span>
+          <span class="rm-period">現在進行中</span>
+          <span class="rm-now">NOW</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">情報収集</p>
+            <ul class="rm-bullets">
+              <li>農地の基本情報を事前に収集</li>
+              <li>農作業の基礎知識・農機具情報を習得</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">準備</p>
+            <ul class="rm-bullets">
+              <li>種苗・農機具の情報収集</li>
+              <li>地域農業の状況を把握</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P2</div>
+        <div class="rm-head">
+          <span class="rm-label">P2</span>
+          <span class="rm-title">確認・整備</span>
+          <span class="rm-period">移住直後〜6か月</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">農地確認</p>
+            <ul class="rm-bullets">
+              <li>農地の面積・土壌状態を確認・記録</li>
+              <li>水利用・農地法上の扱いを確認</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">初期整備</p>
+            <ul class="rm-bullets">
+              <li>状態に応じた初期整備を実施</li>
+              <li>小規模での試作を開始</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P3</div>
+        <div class="rm-head">
+          <span class="rm-label">P3</span>
+          <span class="rm-title">試験農作業</span>
+          <span class="rm-period">6か月〜2年</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">食料自給</p>
+            <ul class="rm-bullets">
+              <li>米・野菜作りを実践しながら記録</li>
+              <li>自給率 30〜50% を目標に</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">コミュニティ</p>
+            <ul class="rm-bullets">
+              <li>農業法人・集落営農との接点形成</li>
+              <li>地域農家から農作業を学ぶ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P4</div>
+        <div class="rm-head">
+          <span class="rm-label">P4</span>
+          <span class="rm-title">自給率向上</span>
+          <span class="rm-period">2年〜</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">食料自給</p>
+            <ul class="rm-bullets">
+              <li>米 50〜100%・野菜 70% 自給を目指す</li>
+              <li>農作業の効率化・記録を継続</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">AI事業連携</p>
+            <ul class="rm-bullets">
+              <li>農業法人・JA の課題を AI 事業へ繋ぐ</li>
+              <li>農業×AI のコンテンツ発信を強化</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
