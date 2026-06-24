@@ -95,6 +95,28 @@
     .diff-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
     .diff-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
 
+    /* ── ロードマップ ── */
+    .roadmap { display: flex; flex-direction: column; }
+    .roadmap-conn { width: 2px; height: 24px; margin-left: 30px; opacity: 0.4; background: linear-gradient(to bottom, var(--primary), transparent); }
+    .rm-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 28px 24px; position: relative; overflow: hidden; }
+    .rm-card.rm-current { background: #1b1410; border-color: rgba(218,119,86,0.45); box-shadow: 0 0 50px rgba(218,119,86,0.1), inset 0 0 40px rgba(218,119,86,0.03); }
+    .rm-card.rm-future { opacity: 0.6; }
+    .rm-bg-num { position: absolute; right: 12px; top: 4px; font-size: 100px; font-weight: 900; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -0.04em; }
+    .rm-current .rm-bg-num { color: rgba(218,119,86,0.09); }
+    .rm-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .rm-label { font-size: 10px; font-weight: 900; color: #fff; background: var(--primary); padding: 3px 12px; border-radius: 99px; letter-spacing: 0.1em; flex-shrink: 0; }
+    .rm-future .rm-label { background: #2a2a2a; color: #666; }
+    .rm-title { font-size: 20px; font-weight: 900; color: var(--text); flex: 1; }
+    .rm-period { font-size: 11px; color: var(--text-muted); white-space: nowrap; background: var(--card-2); border: 1px solid var(--border); padding: 3px 12px; border-radius: 99px; }
+    .rm-now { font-size: 10px; font-weight: 900; letter-spacing: 0.12em; color: var(--primary); border: 1.5px solid var(--primary); padding: 2px 10px; border-radius: 99px; animation: rm-pulse 2s ease-in-out infinite; }
+    @keyframes rm-pulse { 0%,100%{opacity:1;} 50%{opacity:0.45;} }
+    .rm-divider { height: 1px; background: var(--border); margin-bottom: 18px; }
+    .rm-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px 28px; }
+    .rm-group-label { font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 7px; }
+    .rm-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .rm-bullets li { font-size: 13px; color: var(--text-muted); padding-left: 14px; position: relative; line-height: 1.55; }
+    .rm-bullets li::before { content: '›'; position: absolute; left: 2px; color: var(--primary); font-weight: 700; }
+
     .footer { text-align: center; font-size: 12px; color: #555; padding: 28px 24px; border-top: 1px solid var(--border); }
   </style>
 </head>
@@ -321,6 +343,135 @@
       <li>AI × 補助金申請支援（農業・中小企業向け）</li>
       <li>伴走先の実績を事例として蓄積・発信</li>
     </ul>
+  </div>
+
+  <!-- ══ ロードマップ ══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="chapter-num">道</div>
+      <h2 class="section-title">ロードマップ</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="view-block" style="margin-bottom: 24px;">
+      <p class="view-label">応援・助言してくださっている方々へ</p>
+      <p class="view-text">
+        移住前の今（P1）は主に<strong>ツール整備と営業準備</strong>を進めています。移住直後からいきなり顧問案件を狙うのではなく、まず研修受注で地域接点をつくり、段階的にAI事業を育てていく計画です。
+      </p>
+    </div>
+
+    <div class="roadmap">
+      <div class="rm-card rm-current">
+        <div class="rm-bg-num">P1</div>
+        <div class="rm-head">
+          <span class="rm-label">P1</span>
+          <span class="rm-title">移住前</span>
+          <span class="rm-period">現在進行中</span>
+          <span class="rm-now">NOW</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">ツール開発</p>
+            <ul class="rm-bullets">
+              <li>診断ツールの継続改善</li>
+              <li>提案書生成ツールの開発完了</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">営業準備</p>
+            <ul class="rm-bullets">
+              <li>営業資料・事例の整備</li>
+              <li>研修コンテンツの完成</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P2</div>
+        <div class="rm-head">
+          <span class="rm-label">P2</span>
+          <span class="rm-title">営業フェーズ</span>
+          <span class="rm-period">移住直後〜6か月</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">受注</p>
+            <ul class="rm-bullets">
+              <li>地域での研修受注を開始</li>
+              <li>商工会議所・既存ネットワーク経由</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">接点形成</p>
+            <ul class="rm-bullets">
+              <li>地域企業・農業法人との初接触</li>
+              <li>オーダーメイド案件の初受注</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P3</div>
+        <div class="rm-head">
+          <span class="rm-label">P3</span>
+          <span class="rm-title">安定フェーズ</span>
+          <span class="rm-period">6か月〜2年</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">収益</p>
+            <ul class="rm-bullets">
+              <li>伴走（顧問）契約を2〜3件確立</li>
+              <li>月25万円の安定収益を達成</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">サービス深化</p>
+            <ul class="rm-bullets">
+              <li>研修の実績・事例を継続蓄積</li>
+              <li>プロンプトライブラリ整備・活用</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P4</div>
+        <div class="rm-head">
+          <span class="rm-label">P4</span>
+          <span class="rm-title">地域展開フェーズ</span>
+          <span class="rm-period">2年〜</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">地域特化</p>
+            <ul class="rm-bullets">
+              <li>農業法人・JA向けAI支援を展開</li>
+              <li>農業×AIで他にない差別化ポジションへ</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">収益拡大</p>
+            <ul class="rm-bullets">
+              <li>月50万円規模を目指す</li>
+              <li>地域事例を発信コンテンツへ転換</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
