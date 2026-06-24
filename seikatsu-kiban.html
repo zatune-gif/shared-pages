@@ -91,6 +91,28 @@
     .goal-card__label { font-size: 10px; font-weight: 800; color: var(--success); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
     .goal-card__text { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.6; }
 
+    /* ── ロードマップ ── */
+    .roadmap { display: flex; flex-direction: column; }
+    .roadmap-conn { width: 2px; height: 24px; margin-left: 30px; opacity: 0.4; background: linear-gradient(to bottom, var(--info), transparent); }
+    .rm-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 28px 24px; position: relative; overflow: hidden; }
+    .rm-card.rm-current { background: #101520; border-color: rgba(91,155,213,0.45); box-shadow: 0 0 50px rgba(91,155,213,0.08), inset 0 0 40px rgba(91,155,213,0.02); }
+    .rm-card.rm-future { opacity: 0.6; }
+    .rm-bg-num { position: absolute; right: 12px; top: 4px; font-size: 100px; font-weight: 900; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; user-select: none; letter-spacing: -0.04em; }
+    .rm-current .rm-bg-num { color: rgba(91,155,213,0.09); }
+    .rm-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .rm-label { font-size: 10px; font-weight: 900; color: #fff; background: var(--info); padding: 3px 12px; border-radius: 99px; letter-spacing: 0.1em; flex-shrink: 0; }
+    .rm-future .rm-label { background: #2a2a2a; color: #666; }
+    .rm-title { font-size: 20px; font-weight: 900; color: var(--text); flex: 1; }
+    .rm-period { font-size: 11px; color: var(--text-muted); white-space: nowrap; background: var(--card-2); border: 1px solid var(--border); padding: 3px 12px; border-radius: 99px; }
+    .rm-now { font-size: 10px; font-weight: 900; letter-spacing: 0.12em; color: var(--info); border: 1.5px solid var(--info); padding: 2px 10px; border-radius: 99px; animation: rm-pulse-b 2s ease-in-out infinite; }
+    @keyframes rm-pulse-b { 0%,100%{opacity:1;} 50%{opacity:0.45;} }
+    .rm-divider { height: 1px; background: var(--border); margin-bottom: 18px; }
+    .rm-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px 28px; }
+    .rm-group-label { font-size: 10px; font-weight: 800; color: var(--info); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 7px; }
+    .rm-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .rm-bullets li { font-size: 13px; color: var(--text-muted); padding-left: 14px; position: relative; line-height: 1.55; }
+    .rm-bullets li::before { content: '›'; position: absolute; left: 2px; color: var(--info); font-weight: 700; }
+
     .footer { text-align: center; font-size: 12px; color: #555; padding: 28px 24px; border-top: 1px solid var(--border); }
   </style>
 </head>
@@ -314,6 +336,129 @@
       <div class="goal-card">
         <p class="goal-card__label">住宅</p>
         <p class="goal-card__text">断熱・省エネ改善済み。雨漏り・シロアリ対応完了。冬の暖房費を削減。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ロードマップ ══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="chapter-num">道</div>
+      <h2 class="section-title">ロードマップ</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="view-block" style="margin-bottom: 24px;">
+      <p class="view-label">応援・助言してくださっている方々へ</p>
+      <p class="view-text">
+        住宅・設備の詳細は移住してから実際に確認します。<strong>急いで設備投資するのではなく、データを見ながら段階的に進める方針</strong>です。①井戸・②住宅を確認することから始めます。
+      </p>
+    </div>
+
+    <div class="roadmap">
+      <div class="rm-card rm-current">
+        <div class="rm-bg-num">P1</div>
+        <div class="rm-head">
+          <span class="rm-label">P1</span>
+          <span class="rm-title">移住前（事前確認）</span>
+          <span class="rm-period">現在進行中</span>
+          <span class="rm-now">NOW</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">情報収集</p>
+            <ul class="rm-bullets">
+              <li>住宅・農地の基本情報を事前収集</li>
+              <li>地域の工務店・業者情報を把握</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P2</div>
+        <div class="rm-head">
+          <span class="rm-label">P2</span>
+          <span class="rm-title">①② 確認フェーズ</span>
+          <span class="rm-period">移住直後</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">① 井戸確認</p>
+            <ul class="rm-bullets">
+              <li>水量・飲用可否・ポンプ方式を確認・記録</li>
+              <li>予算5〜15万円で必要な追加設備を整備</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">② 住宅確認</p>
+            <ul class="rm-bullets">
+              <li>雨漏り・配線・断熱・シロアリを確認・記録</li>
+              <li>優先度の高いものから修繕（予算10〜30万円）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P3</div>
+        <div class="rm-head">
+          <span class="rm-label">P3</span>
+          <span class="rm-title">③ 計測フェーズ</span>
+          <span class="rm-period">移住後3〜6か月</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">③ 電力計測</p>
+            <ul class="rm-bullets">
+              <li>季節をまたいで電力消費量を計測・記録</li>
+              <li>データを揃えてから設備選定。焦らない。</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">生活費把握</p>
+            <ul class="rm-bullets">
+              <li>実際の生活費データを記録・分析</li>
+              <li>月15万円に向けた支出の実態を把握</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-conn"></div>
+
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P4</div>
+        <div class="rm-head">
+          <span class="rm-label">P4</span>
+          <span class="rm-title">④ 設備導入フェーズ</span>
+          <span class="rm-period">AI事業安定後（2年〜）</span>
+        </div>
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">④ 蓄電池・太陽光</p>
+            <ul class="rm-bullets">
+              <li>計測データをもとに設備を選定・導入</li>
+              <li>Jackery 3000 New + 400W ソーラー（候補）</li>
+              <li>予算25〜35万円（AI事業収入から）</li>
+            </ul>
+          </div>
+          <div>
+            <p class="rm-group-label">目標状態</p>
+            <ul class="rm-bullets">
+              <li>月15〜20万円で家族4人が安定</li>
+              <li>停電時も生活・仕事を継続できる</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
