@@ -1,0 +1,567 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>暮らしの土台ログ｜半農半AI × 半オフグリッド 整理版</title>
+  <style>
+    :root {
+      --primary:    #DA7756;
+      --primary-dk: #b8623f;
+      --primary-bg: rgba(218,119,86,0.12);
+      --bg:         #1C1C1C;
+      --bg-panel:   #141414;
+      --card:       #252525;
+      --card-2:     #2f2f2f;
+      --text:       #eeeeee;
+      --text-muted: #999999;
+      --border:     #3a3a3a;
+      --success:    #4caf7d;
+      --success-bg: rgba(76,175,125,0.12);
+      --warning:    #f5a623;
+      --radius:     12px;
+      --shadow:     0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    /* ── カバー ── */
+    .cover {
+      background: linear-gradient(145deg, #0a0a0a 0%, #181818 55%, #1f1a17 100%);
+      padding: 56px 24px 52px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(218,119,86,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -140px; left: -80px;
+      width: 440px; height: 440px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(218,119,86,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover-inner { max-width: 800px; margin: 0 auto; position: relative; }
+    .cover-eyebrow {
+      font-size: 11px; font-weight: 700; color: var(--primary);
+      text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 16px;
+    }
+    .cover h1 {
+      font-size: 32px; font-weight: 900; letter-spacing: -0.02em;
+      line-height: 1.25; color: #fff; margin-bottom: 14px;
+    }
+    .cover h1 span {
+      display: inline-block; width: 5px; height: 32px;
+      background: var(--primary); border-radius: 3px;
+      margin-right: 14px; vertical-align: middle; margin-bottom: 4px;
+    }
+    .cover-sub {
+      font-size: 14px; color: var(--text-muted); max-width: 520px;
+      line-height: 1.7; margin-bottom: 32px;
+    }
+    .cover-meta { display: flex; flex-wrap: wrap; gap: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .cover-meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .cover-meta-label { font-size: 10px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; }
+    .cover-meta-value { font-size: 14px; font-weight: 600; color: var(--text); }
+
+    /* ── メイン ── */
+    .main { max-width: 800px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ── セクション ── */
+    .section { margin-bottom: 56px; }
+    .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .chapter-num {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; background: var(--primary); color: #fff;
+      font-size: 14px; font-weight: 900; border-radius: 8px; flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(218,119,86,0.4);
+    }
+    .section-title { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; }
+    .section-divider { flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+
+    /* ── ミッションブロック ── */
+    .mission-block {
+      background: #1a1410; border: 1px solid rgba(218,119,86,0.3);
+      border-left: 4px solid var(--primary); border-radius: var(--radius);
+      padding: 28px 32px; margin-bottom: 16px; position: relative; overflow: hidden;
+      box-shadow: 0 0 40px rgba(218,119,86,0.06);
+    }
+    .mission-block::before {
+      content: '"'; position: absolute; top: -16px; right: 16px;
+      font-size: 140px; color: rgba(218,119,86,0.08);
+      font-family: Georgia, serif; line-height: 1; pointer-events: none;
+    }
+    .mission-label { font-size: 10px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; }
+    .mission-concept { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 12px; position: relative; }
+    .mission-text { font-size: 15px; font-weight: 700; line-height: 1.75; color: var(--text); position: relative; font-style: italic; }
+    .mission-note { font-size: 13px; color: var(--text-muted); margin-top: 14px; line-height: 1.7; }
+
+    /* ── 見解ブロック ── */
+    .view-block {
+      background: #111c18; border: 1px solid rgba(76,175,125,0.3);
+      border-left: 4px solid var(--success); border-radius: var(--radius);
+      padding: 20px 24px; margin-bottom: 16px;
+    }
+    .view-label { font-size: 10px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 8px; }
+    .view-text { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+    .view-text strong { color: var(--text); }
+
+    /* ── テーブル ── */
+    .table-wrap { overflow-x: auto; margin-bottom: 16px; border-radius: var(--radius); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--card); }
+    thead th {
+      background: #1a1410; color: var(--primary); font-weight: 700;
+      padding: 12px 16px; text-align: left; font-size: 12px;
+      letter-spacing: 0.05em; border-bottom: 1px solid rgba(218,119,86,0.3);
+    }
+    tbody tr:nth-child(even) { background: #202020; }
+    tbody tr:hover { background: var(--primary-bg); transition: background 0.15s; }
+    td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
+    tbody tr:last-child td { border-bottom: none; }
+    td:first-child { font-weight: 700; color: var(--primary); white-space: nowrap; }
+
+    /* ── 目標カード ── */
+    .goal-card {
+      background: #0d1612; border: 1px solid rgba(76,175,125,0.25);
+      border-left: 4px solid var(--success); border-radius: var(--radius);
+      padding: 22px 28px; margin-bottom: 20px;
+    }
+    .goal-card__label { font-size: 10px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; }
+    .goal-card__text { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.85; }
+    .goal-card__text strong { color: var(--success); }
+
+    /* ── 優先順位グリッド ── */
+    .priority-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+    .priority-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); border-top: 3px solid var(--primary); padding: 18px 18px 20px;
+    }
+    .priority-card__num { font-size: 28px; font-weight: 900; color: var(--primary); opacity: 0.25; line-height: 1; margin-bottom: 6px; }
+    .priority-card__title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .priority-card__items { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .priority-card__items li { font-size: 13px; color: var(--text-muted); padding-left: 14px; position: relative; }
+    .priority-card__items li::before { content: '›'; position: absolute; left: 2px; color: var(--primary); font-weight: 700; }
+    .priority-card__note { font-size: 12px; color: var(--text-muted); margin-top: 8px; padding: 7px 10px; background: var(--card-2); border-radius: 6px; }
+
+    /* ── フェーズリスト ── */
+    .phase-list { display: flex; flex-direction: column; }
+    .phase-item { display: flex; gap: 20px; }
+    .phase-track { display: flex; flex-direction: column; align-items: center; }
+    .phase-dot {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--primary); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;
+      flex-shrink: 0; box-shadow: 0 0 16px rgba(218,119,86,0.4);
+    }
+    .phase-line { flex: 1; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--border)); margin: 6px 0; opacity: 0.4; }
+    .phase-content { flex: 1; padding-bottom: 32px; padding-top: 8px; }
+    .phase-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+    .phase-title { font-size: 17px; font-weight: 800; color: var(--primary); }
+    .phase-period { font-size: 11px; color: var(--text-muted); background: var(--card-2); border: 1px solid var(--border); padding: 2px 10px; border-radius: 99px; }
+    .phase-subtitle { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+    .phase-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .phase-bullets li { font-size: 14px; color: var(--text-muted); padding-left: 18px; position: relative; }
+    .phase-bullets li::before { content: '›'; position: absolute; left: 4px; color: var(--primary); font-weight: 700; }
+    .phase-group { margin-bottom: 14px; }
+    .phase-group__label { font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 6px; letter-spacing: 0.05em; }
+
+    /* ── 差別化グリッド ── */
+    .diff-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+    .diff-card { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); border-top: 2px solid var(--primary); padding: 18px 16px; }
+    .diff-num { font-size: 28px; font-weight: 900; color: var(--primary); opacity: 0.25; line-height: 1; margin-bottom: 6px; }
+    .diff-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .diff-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── ナンバードリスト ── */
+    .num-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .num-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text-muted); }
+    .num-list__n {
+      min-width: 24px; height: 24px; background: var(--primary); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── ビジョンブロック ── */
+    .vision-block {
+      background: #1a1410; border: 1px solid rgba(218,119,86,0.3);
+      border-radius: var(--radius); padding: 32px 36px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .vision-block::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(218,119,86,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .vision-block__label { font-size: 10px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 20px; }
+    .vision-block__quote { font-size: 18px; font-weight: 800; color: #fff; line-height: 1.9; margin-bottom: 20px; position: relative; }
+    .vision-block__tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .vision-tag {
+      font-size: 12px; font-weight: 700; color: var(--primary);
+      background: var(--primary-bg); border: 1px solid rgba(218,119,86,0.3);
+      padding: 4px 14px; border-radius: 99px;
+    }
+
+    /* ── フッター ── */
+    footer { text-align: center; padding: 28px 24px; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border); background: var(--bg-panel); }
+
+    @media (max-width: 600px) {
+      .cover h1 { font-size: 24px; }
+      .priority-grid { grid-template-columns: 1fr; }
+      .diff-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cover">
+  <div class="cover-inner">
+    <p class="cover-eyebrow">府中市移住 × 暮らしの土台ログ</p>
+    <h1><span></span>半農半AI × 半オフグリッド<br>整理版</h1>
+    <p class="cover-sub">移住前〜3年後までの4フェーズロードマップ。主エンジンはAI事業。農・エネルギー・地域は生活コスト削減と差別化の支柱。</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><span class="cover-meta-label">作成者</span><span class="cover-meta-value">大音</span></div>
+      <div class="cover-meta-item"><span class="cover-meta-label">作成日</span><span class="cover-meta-value">2026年6月</span></div>
+      <div class="cover-meta-item"><span class="cover-meta-label">移住先</span><span class="cover-meta-value">広島県府中市</span></div>
+    </div>
+  </div>
+  </div>
+
+  <div class="main">
+
+    <!-- 基本方針 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="chapter-num">1</div>
+        <h2 class="section-title">基本方針</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="mission-block">
+        <p class="mission-label">CORE PRINCIPLE</p>
+        <p class="mission-concept">主エンジンはAI事業</p>
+        <p class="mission-text">農業もオフグリッドも重要だが、役割は「生活コスト削減・地域理解・差別化・発信素材」であり、収入の中心は当面AI事業になる</p>
+      </div>
+
+      <div class="view-block">
+        <p class="view-label">整理のポイント</p>
+        <p class="view-text">
+          「半農半AI」というフレーミングは発信上の強みだが、<strong>農業を収益の柱に据えると計画が迷走する</strong>。農は生活コスト削減と地域参入の手段として割り切ることで、AI事業に集中できる精神的余裕が生まれる。「月15万円で暮らせる基盤」があるからこそ、AI事業をじっくり育てられる——この順序が重要。
+        </p>
+      </div>
+
+      <div class="goal-card">
+        <p class="goal-card__label">目指す姿</p>
+        <p class="goal-card__text">
+          <strong>AIで現金収入を得る</strong>（月25〜50万円目標）<br>
+          <strong>農で生活費を下げる</strong>（食料自給・食費削減）<br>
+          <strong>井戸で水コストを下げる</strong><br>
+          <strong>太陽光で電力依存を下げる</strong>（段階的に）<br>
+          ——生活費目標：<strong>月15万円</strong>で持続可能に暮らす
+        </p>
+      </div>
+    </section>
+
+    <!-- 前提条件 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="chapter-num">2</div>
+        <h2 class="section-title">確定している資産・前提</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>種類</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr><td>住居</td><td>5LDK・2階建て・築50年以上・家賃ゼロ</td></tr>
+            <tr><td>土地</td><td>畑3か所・田んぼ2か所・山あり（面積・状態は未確認）</td></tr>
+            <tr><td>インフラ</td><td>井戸利用可能（飲用可否・水量は未確認）</td></tr>
+            <tr><td>税負担</td><td>固定資産税 年16,000円</td></tr>
+            <tr><td>家族</td><td>4人家族</td></tr>
+            <tr><td>事業</td><td>中小企業向け業務改善支援・生成AI活用支援・AI伴走支援</td></tr>
+            <tr><td>健康管理</td><td>上腕式血圧計・スマートウォッチ・体重計・定期血液検査（整備済み）</td></tr>
+            <tr><td>既往歴</td><td>脳室内出血・高血圧・痛風・アトピー性皮膚炎</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="view-block">
+        <p class="view-label">健康面の整理</p>
+        <p class="view-text">
+          脳室内出血・高血圧の既往がある場合、農作業の強度管理が重要になる。ただしこれはリスクではなく、<strong>AI事業を在宅中心に置く選択の合理性を補強する根拠</strong>でもある。農業は「食費削減のための無理しない範囲での実践」と位置づければ、健康管理との両立が自然な形で成立する。発信上も「健康を守りながら農業とAIを実践する当事者」というストーリーは独自性がある。
+        </p>
+      </div>
+    </section>
+
+    <!-- フェーズロードマップ -->
+    <section class="section">
+      <div class="section-header">
+        <div class="chapter-num">3</div>
+        <h2 class="section-title">4フェーズ ロードマップ</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="view-block" style="margin-bottom:28px;">
+        <p class="view-label">ロードマップの考え方</p>
+        <p class="view-text">
+          移住「後」に準備を始めると、生活基盤・営業・農業・AI事業を全部同時スタートすることになり現実的にきつい。<strong>移住前にAI事業の種を蒔いておくことで、移住直後のキャッシュフロープレッシャーを大幅に下げられる</strong>。フェーズ1（移住前）が計画全体の土台。
+        </p>
+      </div>
+
+      <div class="phase-list">
+
+        <div class="phase-item">
+          <div class="phase-track">
+            <div class="phase-dot">P1</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <span class="phase-title">移住前の準備</span>
+              <span class="phase-period">移住前</span>
+            </div>
+            <p class="phase-subtitle">府中で活動を始めるための土台を現住所で作る</p>
+            <div class="phase-group">
+              <p class="phase-group__label">AI事業</p>
+              <ul class="phase-bullets">
+                <li>サービス設計・実績整理・提案資料整備</li>
+                <li>プロトタイプ開発（診断ツール・提案書生成など）</li>
+                <li>発信開始（AI開発・移住準備・半農半AI構想）</li>
+              </ul>
+            </div>
+            <div class="phase-group">
+              <p class="phase-group__label">情報収集</p>
+              <ul class="phase-bullets">
+                <li>住宅・井戸・農地の詳細確認（面積・状態）</li>
+                <li>府中市の地域情報・事業者情報の把握</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-track">
+            <div class="phase-dot">P2</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <span class="phase-title">生活基盤構築 ＋ 地域接点形成</span>
+              <span class="phase-period">移住直後〜1年</span>
+            </div>
+            <p class="phase-subtitle">この時期が計画全体の正念場。並行して進める。</p>
+            <div class="phase-group">
+              <p class="phase-group__label">① 生活基盤整備</p>
+              <ul class="phase-bullets">
+                <li>井戸確認（飲用可否・水量・ポンプ方式）</li>
+                <li>家の状態確認（雨漏り・配線・断熱性能）</li>
+                <li>電力使用量の把握（3〜6か月計測）</li>
+                <li>畑・田んぼの面積・状態確認</li>
+              </ul>
+            </div>
+            <div class="phase-group">
+              <p class="phase-group__label">② AI事業営業</p>
+              <ul class="phase-bullets">
+                <li>地域事業者訪問・商工会との接点づくり</li>
+                <li>提案活動・初顧客獲得</li>
+              </ul>
+            </div>
+            <div class="phase-group">
+              <p class="phase-group__label">③ 農業との関わり（収入ではなく課題理解が目的）</p>
+              <ul class="phase-bullets">
+                <li>農業法人・地域農家・集落営農・JA関連との接点</li>
+                <li>農業知識習得・地域ネットワーク形成</li>
+                <li>食料自給の試験運用（米・ジャガイモ・玉ねぎ等）</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-track">
+            <div class="phase-dot">P3</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <span class="phase-title">AI × 地域課題サービスの展開</span>
+              <span class="phase-period">1〜2年目</span>
+            </div>
+            <p class="phase-subtitle">フェーズ2で蓄積した接点と課題理解をサービスへ転換する</p>
+            <ul class="phase-bullets">
+              <li>業務改善支援・AI伴走支援・AI研修を地域企業へ本格提供</li>
+              <li>農業・地域団体・製造業の課題を取り込んだサービス設計</li>
+              <li>地上設置型ソーラー・蓄電池の導入判断（電力計測データをもとに）</li>
+              <li>YouTube・SNSによる発信の本格化</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-track">
+            <div class="phase-dot">P4</div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <span class="phase-title">暮らしの土台ログの具体化</span>
+              <span class="phase-period">2〜3年目</span>
+            </div>
+            <p class="phase-subtitle">AI・農・教育・地域活動・生活基盤が自然に統合されている状態</p>
+            <ul class="phase-bullets">
+              <li>地域共創型AI支援の事業化（農業DX・地域DX）</li>
+              <li>食料・水・電力の自給比率を段階的に引き上げ</li>
+              <li>自治体向け研修・コミュニティ運営</li>
+              <li>「暮らしの土台ログとして生きる」発信が集客資産に</li>
+            </ul>
+            <div class="view-block" style="margin-top:16px; margin-bottom:0;">
+              <p class="view-label">見解</p>
+              <p class="view-text">フェーズ4の「統合」は意図して設計するものではない。<strong>フェーズ1〜3を誠実にやり切れば、AI・農・地域は自然につながってくる</strong>。統合を急ぐと何も深まらない。このフェーズが「計画」ではなく「結果」として訪れるのが理想の形。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- オフグリッド方針 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="chapter-num">4</div>
+        <h2 class="section-title">オフグリッド方針</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="mission-block">
+        <p class="mission-label">基本方針</p>
+        <p class="mission-text">目標は「完全オフグリッド」ではなく「半オフグリッド」。設備投資はAI事業が安定してから。家賃ゼロという条件があるため、急ぐ必要はない。</p>
+      </div>
+
+      <ol class="num-list" style="margin-top:20px;">
+        <li><span class="num-list__n">1</span>井戸確認（飲用可否・水量・停電時の利用可否）</li>
+        <li><span class="num-list__n">2</span>住宅状態確認（雨漏り・電気配線・断熱性能）</li>
+        <li><span class="num-list__n">3</span>実際の電力消費量を3〜6か月計測</li>
+        <li><span class="num-list__n">4</span>データをもとに蓄電池・太陽光を選定</li>
+      </ol>
+
+      <div class="diff-grid" style="margin-top:20px;">
+        <div class="diff-card">
+          <div class="diff-num">待つ</div>
+          <div class="diff-title">データ取得後に選定（推奨）</div>
+          <div class="diff-desc">実際の使用量・住宅断熱性能・井戸状況がわかってから選ぶ。過不足のない投資ができ、家賃ゼロなので急ぐ理由もない</div>
+        </div>
+        <div class="diff-card" style="border-top-color: var(--success);">
+          <div class="diff-num" style="color:var(--success);">先行</div>
+          <div class="diff-title">Jackery 3000 New（安心感優先なら合理的）</div>
+          <div class="diff-desc">AI事業用PC・冷蔵庫・通信を止めない。停電時3〜7日維持。将来ソーラー400W→800Wへ増設。1000Whより最初から3000Whが長期では合理的</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 発信戦略 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="chapter-num">5</div>
+        <h2 class="section-title">発信戦略</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="mission-block">
+        <p class="mission-label">CORE PRINCIPLE</p>
+        <p class="mission-concept">YouTubeはやる。ただしYouTuberにはならない。</p>
+        <p class="mission-text">目的は「この人に相談したい」を作ること。登録者数ではなく、AI伴走契約につながる信頼を育てる</p>
+      </div>
+
+      <div class="diff-grid" style="margin-bottom:20px;">
+        <div class="diff-card">
+          <div class="diff-num">目的</div>
+          <div class="diff-title">信頼構築・記録・集客</div>
+          <div class="diff-desc">「府中市で半農半AIを実践する当事者」というストーリーそのものがコンテンツ。登録者1万人よりAI伴走契約1件（月5万×6社＝月30万）が目標</div>
+        </div>
+        <div class="diff-card">
+          <div class="diff-num">運用</div>
+          <div class="diff-title">週1本・編集時間最小化</div>
+          <div class="diff-desc">スマホ撮影 → AI文字起こし → 最低限カット → 公開。Claude要約 → Facebook / note / X に展開。編集時間は週30分以下</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>発信テーマ</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr><td>府中市移住</td><td>移住準備・住宅確認・地域との接点形成の実録</td></tr>
+            <tr><td>半農半AI</td><td>農業学習記録・食料自給の試み・AI事業構築の進捗</td></tr>
+            <tr><td>オフグリッド挑戦</td><td>井戸・太陽光・蓄電池の導入過程</td></tr>
+            <tr><td>AI事業構築</td><td>Claude Code活用・受注過程・顧客支援の記録</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 最終ビジョン -->
+    <section class="section">
+      <div class="section-header">
+        <div class="chapter-num">6</div>
+        <h2 class="section-title">3年後の状態</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="table-wrap" style="margin-bottom:24px;">
+        <table>
+          <thead><tr><th>領域</th><th>目標</th></tr></thead>
+          <tbody>
+            <tr><td>収入</td><td>AI事業 月25〜50万円</td></tr>
+            <tr><td>食料</td><td>米・野菜の自給（食費を大幅削減）</td></tr>
+            <tr><td>水</td><td>井戸を主体として活用</td></tr>
+            <tr><td>電力</td><td>太陽光＋蓄電池で一部自給</td></tr>
+            <tr><td>生活費</td><td>月15〜20万円で家族4人が安定して暮らせる</td></tr>
+            <tr><td>地域</td><td>地域企業・農業関係者・地域団体との接点が事業基盤に</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="vision-block">
+        <p class="vision-block__label">FINAL VISION</p>
+        <p class="vision-block__quote">
+          AIで稼ぎ、農で暮らし、<br>
+          井戸と太陽光で備える。<br>
+          その実践経験そのものを事業にする。
+        </p>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px; position:relative;">「月15万円で持続可能に暮らせる基盤」があるからこそ、AI事業も農業も余裕を持って育てられる</p>
+        <div class="vision-block__tags">
+          <span class="vision-tag">半農半AI</span>
+          <span class="vision-tag">暮らしの土台ログ</span>
+          <span class="vision-tag">地域共創AI</span>
+          <span class="vision-tag">府中市</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>改めて、貴重な対話をありがとうございました。</p>
+    <p style="margin-top:6px;">© 2026 ざつね屋</p>
+  </footer>
+
+</body>
+</html>
+
