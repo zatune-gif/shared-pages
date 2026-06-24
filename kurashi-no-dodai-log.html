@@ -227,39 +227,62 @@
     .position-not__label { font-size: 13px; font-weight: 700; color: #777; text-decoration: line-through; }
 
     /* ── ロードマップ ── */
-    .phase-list { display: flex; flex-direction: column; }
-    .phase-item { display: flex; gap: 20px; }
-    .phase-track { display: flex; flex-direction: column; align-items: center; }
-    .phase-dot {
-      width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff;
-      display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;
-      flex-shrink: 0; box-shadow: 0 0 16px rgba(218,119,86,0.4); text-align: center; line-height: 1.2;
+    .roadmap { display: flex; flex-direction: column; }
+    .roadmap-conn {
+      width: 2px; height: 24px; margin-left: 30px; opacity: 0.4;
+      background: linear-gradient(to bottom, var(--primary), transparent);
     }
-    .phase-dot.current {
-      background: transparent; border: 2px solid var(--primary);
-      box-shadow: 0 0 20px rgba(218,119,86,0.5);
+    .rm-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 26px 28px 24px;
+      position: relative; overflow: hidden;
     }
-    .phase-dot.future { background: var(--card); border: 2px solid var(--border); color: var(--text-muted); box-shadow: none; }
-    .phase-line { flex: 1; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--border)); margin: 6px 0; opacity: 0.35; min-height: 20px; }
-    .phase-content { flex: 1; padding-bottom: 36px; padding-top: 8px; }
-    .phase-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-    .phase-title { font-size: 17px; font-weight: 800; color: var(--primary); }
-    .phase-period {
-      font-size: 11px; color: var(--text-muted); background: var(--card-2);
-      border: 1px solid var(--border); padding: 2px 10px; border-radius: 99px;
+    .rm-card.rm-current {
+      background: #1b1410; border-color: rgba(218,119,86,0.45);
+      box-shadow: 0 0 50px rgba(218,119,86,0.1), inset 0 0 40px rgba(218,119,86,0.03);
     }
-    .phase-badge {
-      font-size: 10px; font-weight: 700; color: #fff; background: var(--primary);
-      padding: 2px 8px; border-radius: 99px; letter-spacing: 0.05em;
+    .rm-card.rm-future { opacity: 0.6; }
+    .rm-bg-num {
+      position: absolute; right: 12px; top: 4px;
+      font-size: 100px; font-weight: 900; color: rgba(255,255,255,0.025);
+      line-height: 1; pointer-events: none; user-select: none; letter-spacing: -0.04em;
     }
-    .phase-group { margin-bottom: 12px; }
-    .phase-group__label {
-      font-size: 11px; font-weight: 700; color: var(--primary);
-      margin-bottom: 5px; letter-spacing: 0.05em;
+    .rm-current .rm-bg-num { color: rgba(218,119,86,0.09); }
+    .rm-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px; flex-wrap: wrap;
     }
-    .phase-bullets { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-    .phase-bullets li { font-size: 13px; color: var(--text-muted); padding-left: 16px; position: relative; }
-    .phase-bullets li::before { content: '›'; position: absolute; left: 3px; color: var(--primary); font-weight: 700; }
+    .rm-label {
+      font-size: 10px; font-weight: 900; color: #fff;
+      background: var(--primary); padding: 3px 12px; border-radius: 99px;
+      letter-spacing: 0.1em; flex-shrink: 0;
+    }
+    .rm-future .rm-label { background: #2a2a2a; color: #666; }
+    .rm-title { font-size: 20px; font-weight: 900; color: var(--text); flex: 1; }
+    .rm-period {
+      font-size: 11px; color: var(--text-muted); white-space: nowrap;
+      background: var(--card-2); border: 1px solid var(--border);
+      padding: 3px 12px; border-radius: 99px;
+    }
+    .rm-now {
+      font-size: 10px; font-weight: 900; letter-spacing: 0.12em;
+      color: var(--primary); border: 1.5px solid var(--primary);
+      padding: 2px 10px; border-radius: 99px;
+      animation: rm-pulse 2s ease-in-out infinite;
+    }
+    @keyframes rm-pulse { 0%,100%{opacity:1;} 50%{opacity:0.45;} }
+    .rm-divider { height: 1px; background: var(--border); margin-bottom: 18px; }
+    .rm-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px 28px; }
+    .rm-group-label {
+      font-size: 10px; font-weight: 800; color: var(--primary);
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 7px;
+    }
+    .rm-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .rm-bullets li {
+      font-size: 13px; color: var(--text-muted);
+      padding-left: 14px; position: relative; line-height: 1.55;
+    }
+    .rm-bullets li::before { content: '›'; position: absolute; left: 2px; color: var(--primary); font-weight: 700; }
 
     /* ── フッター ── */
     .footer {
@@ -526,66 +549,66 @@
       </p>
     </div>
 
-    <div class="phase-list">
+    <div class="roadmap">
 
-      <!-- P1 -->
-      <div class="phase-item">
-        <div class="phase-track">
-          <div class="phase-dot current" style="font-size: 9px;">現在</div>
-          <div class="phase-line"></div>
+      <!-- P1 現在 -->
+      <div class="rm-card rm-current">
+        <div class="rm-bg-num">P1</div>
+        <div class="rm-head">
+          <span class="rm-label">P1</span>
+          <span class="rm-title">移住前</span>
+          <span class="rm-period">現在進行中</span>
+          <span class="rm-now">NOW</span>
         </div>
-        <div class="phase-content">
-          <div class="phase-header">
-            <span class="phase-title">P1 ― 移住前</span>
-            <span class="phase-period">現在進行中</span>
-            <span class="phase-badge">NOW</span>
-          </div>
-          <div class="phase-group">
-            <p class="phase-group__label">💼 仕事</p>
-            <ul class="phase-bullets">
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">仕事</p>
+            <ul class="rm-bullets">
               <li>AI事業の営業ツール・診断ツール整備</li>
               <li>提案書生成ツール開発</li>
             </ul>
           </div>
-          <div class="phase-group">
-            <p class="phase-group__label">📢 発信</p>
-            <ul class="phase-bullets">
+          <div>
+            <p class="rm-group-label">発信</p>
+            <ul class="rm-bullets">
               <li>発信チャンネルの開設・記録スタート</li>
               <li>移住準備の経緯を記録</li>
             </ul>
           </div>
-          <div class="phase-group">
-            <p class="phase-group__label">🏠 住まい</p>
-            <ul class="phase-bullets">
+          <div>
+            <p class="rm-group-label">住まい</p>
+            <ul class="rm-bullets">
               <li>住宅・農地の事前情報収集</li>
             </ul>
           </div>
         </div>
       </div>
 
+      <div class="roadmap-conn"></div>
+
       <!-- P2 -->
-      <div class="phase-item">
-        <div class="phase-track">
-          <div class="phase-dot future">P2</div>
-          <div class="phase-line"></div>
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P2</div>
+        <div class="rm-head">
+          <span class="rm-label">P2</span>
+          <span class="rm-title">確認フェーズ</span>
+          <span class="rm-period">移住直後〜6か月</span>
         </div>
-        <div class="phase-content">
-          <div class="phase-header">
-            <span class="phase-title">P2 ― 確認フェーズ</span>
-            <span class="phase-period">移住直後〜6か月</span>
-          </div>
-          <div class="phase-group">
-            <p class="phase-group__label">🔍 生活基盤の確認</p>
-            <ul class="phase-bullets">
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">生活基盤の確認</p>
+            <ul class="rm-bullets">
               <li>農地の面積・土壌状態を確認・記録</li>
               <li>井戸の水量・飲用可否を確認・記録</li>
-              <li>住宅の雨漏り・配線・断熱状態を確認・記録</li>
+              <li>住宅の状態（雨漏り・配線・断熱）を確認・記録</li>
               <li>電力使用量の計測開始</li>
             </ul>
           </div>
-          <div class="phase-group">
-            <p class="phase-group__label">💼 仕事</p>
-            <ul class="phase-bullets">
+          <div>
+            <p class="rm-group-label">仕事</p>
+            <ul class="rm-bullets">
               <li>AI事業の地域での営業開始</li>
               <li>地域企業・農業法人との接点づくり</li>
             </ul>
@@ -593,66 +616,69 @@
         </div>
       </div>
 
+      <div class="roadmap-conn"></div>
+
       <!-- P3 -->
-      <div class="phase-item">
-        <div class="phase-track">
-          <div class="phase-dot future">P3</div>
-          <div class="phase-line"></div>
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P3</div>
+        <div class="rm-head">
+          <span class="rm-label">P3</span>
+          <span class="rm-title">試すフェーズ</span>
+          <span class="rm-period">6か月〜2年</span>
         </div>
-        <div class="phase-content">
-          <div class="phase-header">
-            <span class="phase-title">P3 ― 試すフェーズ</span>
-            <span class="phase-period">6か月〜2年</span>
-          </div>
-          <div class="phase-group">
-            <p class="phase-group__label">🌾 食</p>
-            <ul class="phase-bullets">
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">食</p>
+            <ul class="rm-bullets">
               <li>初めての米作り・野菜作りに挑戦・記録</li>
               <li>食料自給率の把握</li>
             </ul>
           </div>
-          <div class="phase-group">
-            <p class="phase-group__label">🏠 住まい・エネルギー</p>
-            <ul class="phase-bullets">
+          <div>
+            <p class="rm-group-label">住まい・エネルギー</p>
+            <ul class="rm-bullets">
               <li>優先度の高い住宅修繕を実施・記録</li>
-              <li>電力データをもとにエネルギー設備を選定・導入</li>
+              <li>電力データをもとに設備を選定・導入</li>
             </ul>
           </div>
-          <div class="phase-group">
-            <p class="phase-group__label">💼 仕事</p>
-            <ul class="phase-bullets">
+          <div>
+            <p class="rm-group-label">仕事</p>
+            <ul class="rm-bullets">
               <li>AI事業の本稼働・顧問契約の確立</li>
             </ul>
           </div>
         </div>
       </div>
 
+      <div class="roadmap-conn"></div>
+
       <!-- P4 -->
-      <div class="phase-item">
-        <div class="phase-track">
-          <div class="phase-dot future">P4</div>
+      <div class="rm-card rm-future">
+        <div class="rm-bg-num">P4</div>
+        <div class="rm-head">
+          <span class="rm-label">P4</span>
+          <span class="rm-title">深めるフェーズ</span>
+          <span class="rm-period">2年〜</span>
         </div>
-        <div class="phase-content">
-          <div class="phase-header">
-            <span class="phase-title">P4 ― 深めるフェーズ</span>
-            <span class="phase-period">2年〜</span>
-          </div>
-          <div class="phase-group">
-            <p class="phase-group__label">🌾 食</p>
-            <ul class="phase-bullets">
+        <div class="rm-divider"></div>
+        <div class="rm-groups">
+          <div>
+            <p class="rm-group-label">食</p>
+            <ul class="rm-bullets">
               <li>米・野菜の自給率向上（試行と改善の繰り返し）</li>
             </ul>
           </div>
-          <div class="phase-group">
-            <p class="phase-group__label">🌍 地域</p>
-            <ul class="phase-bullets">
-              <li>農業コミュニティへの参加・地域ネットワーク形成</li>
+          <div>
+            <p class="rm-group-label">地域</p>
+            <ul class="rm-bullets">
+              <li>農業コミュニティへの参加・ネットワーク形成</li>
               <li>AI事業×地域課題の展開</li>
             </ul>
           </div>
-          <div class="phase-group">
-            <p class="phase-group__label">🔋 エネルギー</p>
-            <ul class="phase-bullets">
+          <div>
+            <p class="rm-group-label">エネルギー</p>
+            <ul class="rm-bullets">
               <li>太陽光・蓄電池の運用最適化</li>
               <li>外部依存のさらなる低減</li>
             </ul>
@@ -660,10 +686,10 @@
         </div>
       </div>
 
-    </div><!-- /phase-list -->
+    </div><!-- /roadmap -->
   </div>
 
-  <!-- ══ 8. 発信方針 ══（旧7） -->
+  <!-- ══ 8. 発信方針 ══ -->
   <div class="section">
     <div class="section-header">
       <div class="chapter-num">発</div>
