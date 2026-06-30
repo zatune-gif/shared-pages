@@ -85,7 +85,10 @@
     .tool-body { flex: 1; }
     .tool-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
     .tool-name { font-size: 15px; font-weight: 800; color: var(--text); }
-    .tool-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+    .tool-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 10px; }
+    .tool-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tool-link { font-size: 12px; font-weight: 700; color: var(--primary); background: rgba(218,119,86,0.1); border: 1.5px solid var(--primary); border-radius: 99px; padding: 4px 14px; text-decoration: none; transition: background 0.15s; }
+    .tool-link:hover { background: rgba(218,119,86,0.22); }
 
     /* ── 差別化グリッド ── */
     .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
@@ -292,9 +295,12 @@
           </div>
           <p class="tool-desc">
             12問（簡易版）→ 23問（詳細版）→ 資料請求 / 見積請求の流れ。<br>
-            Claude APIをNetlify Functionsでサーバーサイド実行。<br>
-            URL: <span style="color: var(--primary); font-size: 12px;">ai-shindan-zatuneya.netlify.app</span>
+            Claude APIをNetlify Functionsでサーバーサイド実行。
           </p>
+          <div class="tool-links">
+            <a href="https://ai-shindan-zatuneya.netlify.app/" target="_blank" rel="noopener" class="tool-link">簡易版（12問）↗</a>
+            <a href="https://ai-shindan-zatuneya.netlify.app/detail.html" target="_blank" rel="noopener" class="tool-link">詳細版（23問）↗</a>
+          </div>
         </div>
       </div>
       <div class="tool-item">
